@@ -122,7 +122,7 @@ Content-Type: application/json
 	"city": "Ankeborg",
 	"countryCode": "SE",
 	"buildingDistinguisher": "", // "set if something is needed to distinguish a specific building on the address"
-	"buildingType": "MDU", // "MDU", "SDU"
+	"buildingType": "MDU", // "'MDU', 'SDU'"
 	"realEstateLabel": "PENGABINGEN 1",
 	"municipality": "ANKEBORG",
 	"district": "GAMLA STAN",
@@ -131,7 +131,7 @@ Content-Type: application/json
 	"suppliers": [
 		{
 			"name": "STOKAB",
-			"fiberStatus": "IN_REAL_ESTATE", // "EXISTS", "AT_SITE_BOUNDARY"
+			"fiberStatus": "IN_REAL_ESTATE", // "'EXISTS', 'AT_SITE_BOUNDARY'"
 		},
 		...
 	],
@@ -366,7 +366,7 @@ Content-Type: application/json
 								"name": "ResidentialNetwork",
 								"parameters": [
 									{
-										"name:" "NoOfRooms",
+										"name": "NoOfRooms",
 										"value": "10"
 									}
 								],
