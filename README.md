@@ -157,7 +157,7 @@ Content-Type: application/json
 					"fiberStatus": "EXISTS"
 				},
 				...
-			],
+			]
 		},
 		...
 	]
@@ -201,7 +201,8 @@ Content-Type: application/json
 				},
 				...
 			]
-		}
+		},
+		...
 	],
 	"contractPeriod": 12, // "number of months"
 	"noOfFibers": 1, // "number of wanted fiber pairs (or single fibers depending on product)"
