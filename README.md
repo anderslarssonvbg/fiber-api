@@ -189,7 +189,7 @@ Content-Type: application/json
 			"name": "ConnectorType",
 			"value": "SC/APC"
 		},
-	...
+		...
 	],
 	"subProducts": [
 		{
