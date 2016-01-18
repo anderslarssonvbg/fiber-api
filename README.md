@@ -271,7 +271,7 @@ Content-Type: application/json
 								"name": "ResidentialNetwork",
 								"parameters": [
 									{
-										"name:" "NoOfRooms",
+										"name": "NoOfRooms",
 										"value": "10"
 									}
 								],
