@@ -15,7 +15,7 @@ Last-Modified: Sun, 10 Jan 2016 12:03:28 GMT
 Content-Type: application/json
 
 [
-    {
+	{
 		"addressId": "ABC123",
 		"streetName": "Testvägen",
 		"streetNumber": "100",
@@ -23,7 +23,7 @@ Content-Type: application/json
 		"postalCode": "10000",
 		"city": "Ankeborg",
 		"countryCode": "SE",
-		"buildingDistinguisher": "", // set if something is needed to distinguish a specific building on the address
+		"buildingDistinguisher": "", // "set if something is needed to distinguish a specific building on the address"
 		"buildingType": "MDU", // "SDU"
 		"realEstateLabel": "PENGABINGEN 1",
 		"municipality": "ANKEBORG",
@@ -121,7 +121,7 @@ Content-Type: application/json
 	"postalCode": "10000",
 	"city": "Ankeborg",
 	"countryCode": "SE",
-	"buildingDistinguisher": "", // set if something is needed to distinguish a specific building on the address
+	"buildingDistinguisher": "", // "set if something is needed to distinguish a specific building on the address"
 	"buildingType": "MDU", // "MDU", "SDU"
 	"realEstateLabel": "PENGABINGEN 1",
 	"municipality": "ANKEBORG",
@@ -135,7 +135,7 @@ Content-Type: application/json
 		},
 		...
 	],
- 	"relatedAddresses": [ // list of other nearby addresses which could be used instead of the searched address
+ 	"relatedAddresses": [ // "list of other nearby addresses which could be used instead of the searched address"
 		{
 			"addressId": "ABC456",
 			"streetName": "Annanvägen",
@@ -175,37 +175,37 @@ Content-Type: application/json
 
 {
 	"fromAddressId": "ABC123",			
-	"toAddressId": "ABC789", // may be set to null if any product only requires one address
-	"fromNode": null, // if from is specified as a node instead of an address
-	"toNode": null, // if to is specified as a node instead of an address
-	"fromComment": "", // if an additional comment for the from point could be useful for the supplier
-	"toComment": "", // if an additional comment for the to point could be useful for the supplier
-    "redundancyType": "Full", // "None", "Normal" 
-	"redundancyToAddressId": "CBA123", // may be set to null if redundancyType = "None"
-	"serviceLevel": "Premium", // e.g. "Base", "Gold", "Premium"
-	"product": "All", // e.g. "All", "Point2Point", "Star"
+	"toAddressId": "ABC789", // "may be set to null if any product only requires one address"
+	"fromNode": null, // "if from is specified as a node instead of an address"
+	"toNode": null, // "if to is specified as a node instead of an address"
+	"fromComment": "", // "if an additional comment for the from point could be useful for the supplier"
+	"toComment": "", // "if an additional comment for the to point could be useful for the supplier"
+	"redundancyType": "Full", // "'None', 'Normal', 'Full'"
+	"redundancyToAddressId": "CBA123", // "may be set to null if redundancyType = 'None'"
+	"serviceLevel": "Premium", // "e.g. 'Base', 'Gold', 'Premium'"
+	"product": "All", // "e.g. 'All', 'Point2Point', 'Star'"
 	"parameters": [
-        {
-            "name": "ConnectorType",
-            "value": "SC/APC"
-        },
-        ...
-    ],
-	"subProducts": [
-        {
-            "name": "ResidentialNetwork",
-            "parameters": [
-                {
-                    "name": "NoOfRooms",
-                    "value": "10"
-                },
-                ...
-            ]
-        }
+		{
+			"name": "ConnectorType",
+			"value": "SC/APC"
+		},
+	...
 	],
-	"contractPeriod": 12, // number of months
-	"noOfFibers": 1, // number of wanted fiber pairs (or single fibers depending on product)
-	"asyncAnswerAllowed": true // if asychronous answer is ok (might result in an extra charge if manual)
+	"subProducts": [
+		{
+			"name": "ResidentialNetwork",
+			"parameters": [
+				{
+					"name": "NoOfRooms",
+					"value": "10"
+				},
+				...
+			]
+		}
+	],
+	"contractPeriod": 12, // "number of months"
+	"noOfFibers": 1, // "number of wanted fiber pairs (or single fibers depending on product)"
+	"asyncAnswerAllowed": true // "if asychronous answer is ok (might result in an extra charge if manual)"
 }
 ```
 
@@ -219,14 +219,14 @@ Content-Type: application/json
 
 {
 	"inquiryId": "ec4bc754-6a30-11e2-a585-4fc569183061",
-	"state": "WAIT_ASYNC_ANSWER", // "DONE_SUCCESS", "DONE_FAILED", "DONE_ASYNC_ANSWER_SUCCESS", "DONE_ASYNC_ANSWER_FAILED"
+	"state": "WAIT_ASYNC_ANSWER", // "'DONE_SUCCESS', 'DONE_FAILED', 'DONE_ASYNC_ANSWER_SUCCESS', 'DONE_ASYNC_ANSWER_FAILED'"
 	"message": "",
 	"offers": [
 		{
 			"supplier": "STOKAB",
 			"offerValidUntil": "2016-01-31",
-			"connectionId": "", // may be set to the identifier for the connection if that is already generated when inquiry is answered
-			"deliveryDuration": 20, // days from order to delivered connection
+			"connectionId": "", // "may be set to the identifier for the connection if that is already generated when inquiry is answered"
+			"deliveryDuration": 20, // "days from order to delivered connection"
 			"products": [
 				{
 					"name": "Point2Point",
@@ -239,7 +239,7 @@ Content-Type: application/json
 						...
 					],
 					"price": {
-						"status": "ESTIMATED", // "ESTIMATED", "OFFER". Estimated price can be delivered in synchronous answer and then be overridden by an offer in an asynchronous answer
+						"status": "ESTIMATED", // "'ESTIMATED', 'OFFER'. Estimated price can be delivered in synchronous answer and then be overridden by an offer in an asynchronous answer"
 						"oneTimeFee": 15100.0,
 						"monthlyFee": 1200.0,
 						"items": [
@@ -433,5 +433,3 @@ Content-Type: application/json
 	...
 ]
 ```
-
-
