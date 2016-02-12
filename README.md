@@ -4,7 +4,7 @@
 ***Request:***
 
 ```http
-GET /api/1.0/addresses/ HTTP/1.1
+GET /api/1.0/feasibility/ HTTP/1.1
 ```
 
 ***Response:***
@@ -16,20 +16,29 @@ Content-Type: application/json
 
 [
 	{
-		"addressId": "ABC123",
-		"streetName": "Testvägen",
-		"streetNumber": "100",
-		"streetLittera": "",
-		"postalCode": "10000",
-		"city": "Ankeborg",
-		"countryCode": "SE",
-		"buildingDistinguisher": "", // "set if something is needed to distinguish a specific building on the address"
-		"buildingType": "MDU", // "SDU"
-		"realEstateLabel": "PENGABINGEN 1",
-		"municipality": "ANKEBORG",
-		"district": "GAMLA STAN",
-		"latitude": "6581619.085",
-		"longitude": "1628539.32"
+		"pointId": "ABC123",
+		"street": {
+			"name": "Testvägen",
+			"number": "100",
+			"littera": "",
+			"postalCode": "10000",
+			"city": "Ankeborg",
+			"countryCode": "SE"
+		},
+		"building": {
+			"distinguisher": "", // "set if something is needed to distinguish a specific building on the address"
+			"type": "MDU", // "'MDU' = apartment building, 'SDU' = villa
+		},
+		"realEstate": {
+			"label": "PENGABINGEN 1",
+			"municipality": "ANKEBORG",
+		},
+		"coordinates": {
+			"latitude": 6581619.085,
+			"longitude": 1628539.32,
+			"system": "WGS84"
+		},
+		"district": "GAMLA STAN"
 	},
 	...
 ]
@@ -99,13 +108,13 @@ HTTP/1.1 304 Not Modified
 ***Request:***
 
 ```http
-GET /api/1.0/address/{city}/{streetName}/{streetNumber}/{streetLittera} HTTP/1.1
+GET /api/1.0/availability/city={city}&street_name={streetName}&street_mumber={streetNumber}&street_littera={streetLittera} HTTP/1.1
 ```
 
 eller
 
 ```http
-GET /api/1.0/address?addressId={addressId} HTTP/1.1
+GET /api/1.0/availability?pointId={pointId} HTTP/1.1
 ```
 ***Response:***
 
@@ -114,20 +123,29 @@ HTTP/1.1 200 OK
 Content-Type: application/json
 
 {
-	"addressId": "ABC123",
-	"streetName": "Testvägen",
-	"streetNumber": "100",
-	"streetLittera": "",
-	"postalCode": "10000",
-	"city": "Ankeborg",
-	"countryCode": "SE",
-	"buildingDistinguisher": "", // "set if something is needed to distinguish a specific building on the address"
-	"buildingType": "MDU", // "'MDU', 'SDU'"
-	"realEstateLabel": "PENGABINGEN 1",
-	"municipality": "ANKEBORG",
+	"pointId": "ABC123",
+	"street": {
+		"name": "Testvägen",
+		"number": "100",
+		"littera": "",
+		"postalCode": "10000",
+		"city": "Ankeborg",
+		"countryCode": "SE"
+	},
+	"building": {
+		"distinguisher": "", // "set if something is needed to distinguish a specific building on the address"
+		"type": "MDU", // "'MDU' = apartment building, 'SDU' = villa
+	},
+	"realEstate": {
+		"label": "PENGABINGEN 1",
+		"municipality": "ANKEBORG",
+	},
+	"coordinates": {
+		"latitude": 6581619.085,
+		"longitude": 1628539.32,
+		"system": "WGS84"
+	},
 	"district": "GAMLA STAN",
-	"latitude": "6581619.085",
-	"longitude": "1628539.32",
 	"suppliers": [
 		{
 			"name": "STOKAB",
@@ -135,31 +153,9 @@ Content-Type: application/json
 		},
 		...
 	],
- 	"relatedAddresses": [ // "list of other nearby addresses which could be used instead of the searched address"
-		{
-			"addressId": "ABC456",
-			"streetName": "Annanvägen",
-			"streetNumber": "200",
-			"streetLittera": "",
-			"postalCode": "10000",
-			"city": "Ankeborg",
-			"countryCode": "SE",
-			"buildingDistinguisher": "",
-			"buildingType": "MDU",
-			"realEstateLabel": "PENGABINGEN 1",
-			"municipality": "ANKEBORG",
-			"district": "GAMLA STAN",
-			"latitude": "6581620.036",
-			"longitude": "1628540.95",
-			"suppliers": [
-				{
-					"name": "STOKAB",
-					"fiberStatus": "EXISTS"
-				},
-				...
-			]
-		},
-		...
+ 	"relatedPointIds": [ // "list of other nearby addresses which could be used instead of the searched address"
+		"CDE678",
+		"CDE901"
 	]
 }
 ```
@@ -174,10 +170,8 @@ POST /api/1.0/inquiry/ HTTP/1.1
 Content-Type: application/json
 
 {
-	"fromAddressId": "ABC123",			
-	"toAddressId": "ABC789", // "may be set to null if any product only requires one address"
-	"fromNode": null, // "if from is specified as a node instead of an address"
-	"toNode": null, // "if to is specified as a node instead of an address"
+	"fromPointId": "ABC123",			
+	"toPointId": "ABC789", // "may be set to null if any product only requires one address"
 	"fromComment": "", // "if an additional comment for the from point could be useful for the supplier"
 	"toComment": "", // "if an additional comment for the to point could be useful for the supplier"
 	"redundancyType": "Full", // "'None', 'Normal', 'Full'"
@@ -232,6 +226,7 @@ Content-Type: application/json
 				{
 					"name": "Point2Point",
 					"status": "AVAILABLE",
+					"comment": "",
 					"items": [
 						{
 							"name": "distance",
@@ -285,7 +280,8 @@ Content-Type: application/json
 				},
 				{
 					"name": "Star",
-					"status": "NOT_AVAILABLE",
+					"status": "POSSIBLE_WITH_CONDITIONS", // "'NOT_AVAILABLE', 'AVAILABLE'
+					"comment": "Connection to anslutningsnod is necessary to be available",
 					"items": [],
 					"price": null
 				},
@@ -327,6 +323,7 @@ Content-Type: application/json
 				{
 					"name": "Point2Point",
 					"status": "AVAILABLE",
+					"comment": "",
 					"items": [
 						{
 							"name": "distance",
@@ -381,6 +378,7 @@ Content-Type: application/json
 				{
 					"name": "Star",
 					"status": "NOT_AVAILABLE",
+					"comment": "",
 					"items": [],
 					"price": null
 				},
