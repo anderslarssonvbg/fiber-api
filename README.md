@@ -27,13 +27,13 @@ Content-Type: application/json
 		},
 		"building": {
 			"distinguisher": "", // "set if something is needed to distinguish a specific building on the address"
-			"type": "MDU", // "'MDU' = apartment building, 'SDU' = villa
+			"type": "MDU", // "'MDU' = apartment building, 'SDU' = villa"
 		},
 		"realEstate": {
 			"label": "PENGABINGEN 1",
 			"municipality": "ANKEBORG",
 		},
-		"coordinates": {
+		"coordinate": {
 			"latitude": 6581619.085,
 			"longitude": 1628539.32,
 			"system": "WGS84"
@@ -134,13 +134,13 @@ Content-Type: application/json
 	},
 	"building": {
 		"distinguisher": "", // "set if something is needed to distinguish a specific building on the address"
-		"type": "MDU", // "'MDU' = apartment building, 'SDU' = villa
+		"type": "MDU", // "'MDU' = apartment building, 'SDU' = villa"
 	},
 	"realEstate": {
 		"label": "PENGABINGEN 1",
 		"municipality": "ANKEBORG",
 	},
-	"coordinates": {
+	"coordinate": {
 		"latitude": 6581619.085,
 		"longitude": 1628539.32,
 		"system": "WGS84"
@@ -281,7 +281,7 @@ Content-Type: application/json
 				{
 					"name": "Star",
 					"status": "POSSIBLE_WITH_CONDITIONS", // "'NOT_AVAILABLE', 'AVAILABLE'
-					"comment": "Connection to anslutningsnod is necessary to be available",
+					"comment": "Connection to anslutningsnod is necessary for address to be available",
 					"items": [],
 					"price": null
 				},
