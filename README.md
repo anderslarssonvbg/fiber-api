@@ -286,7 +286,7 @@ Content-Type: application/json
 				},
 				{
 					"name": "Star",
-					"status": "POSSIBLE_WITH_CONDITIONS", // "'NOT_AVAILABLE', 'AVAILABLE'
+					"status": "POSSIBLE_WITH_CONDITIONS", // "'NOT_AVAILABLE', 'AVAILABLE'"
 					"comment": "Connection to anslutningsnod is necessary for address to be available",
 					"items": [],
 					"price": null
