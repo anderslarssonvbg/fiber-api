@@ -1,10 +1,10 @@
 # 1. Feasibility API
-### Hämta alla levererbara adresser
+### Hämta alla levererbara platser
 
 ***Request:***
 
 ```http
-GET /api/1.0/feasibility/ HTTP/1.1
+GET /api/1.0/feasibility HTTP/1.1
 ```
 
 ***Response:***
@@ -58,7 +58,7 @@ Exempel på anropssekvens:
 ***Request:***
 
 ```http
-GET /api/1.0/feasibility/ HTTP/1.1
+GET /api/1.0/feasibility HTTP/1.1
 ```
 
 ***Response:***
@@ -76,7 +76,7 @@ Vid påföljande anrop skickas en "If-Modified-Since"-header för att bara be om
 ***Request:***
 
 ```http
-GET /api/1.0/feasibility/ HTTP/1.1
+GET /api/1.0/feasibility HTTP/1.1
 If-Modified-Since: Mon, 11 Jan 2016 12:03:28 GMT
 
 ...
@@ -103,12 +103,12 @@ HTTP/1.1 304 Not Modified
 ```
 
 # 2. Availability API
-### Hämta detaljerad information och leverantörers fiberstatus på en specifik adress
+### Hämta detaljerad information och leverantörers fiberstatus på en specifik plats (adress)
 
 ***Request:***
 
 ```http
-GET /api/1.0/availability/city={city}&street_name={streetName}&street_mumber={streetNumber}&street_littera={streetLittera} HTTP/1.1
+GET /api/1.0/availability?city={city}&street_name={streetName}&street_mumber={streetNumber}&street_littera={streetLittera} HTTP/1.1
 ```
 
 eller
@@ -153,7 +153,7 @@ Content-Type: application/json
 		},
 		...
 	],
- 	"relatedPointIds": [ // "list of other nearby addresses which could be used instead of the searched address"
+ 	"relatedPointIds": [ // "list of other nearby points (addresses) which could be used instead of the searched point (address)"
 		"CDE678",
 		"CDE901"
 	]
@@ -170,12 +170,18 @@ POST /api/1.0/inquiry/ HTTP/1.1
 Content-Type: application/json
 
 {
-	"fromPointId": "ABC123",			
-	"toPointId": "ABC789", // "may be set to null if any product only requires one address"
-	"fromComment": "", // "if an additional comment for the from point could be useful for the supplier"
-	"toComment": "", // "if an additional comment for the to point could be useful for the supplier"
-	"redundancyType": "Full", // "'None', 'Normal', 'Full'"
-	"redundancyToAddressId": "CBA123", // "may be set to null if redundancyType = 'None'"
+	"from": {
+		"pointId": "ABC123",
+		"comment": "", // "if an additional comment for the from point could be useful for the supplier"
+	},
+	"to": { // "may be set to null if any product only requires one point (address)"
+		"pointId": "ABC789", 
+		"toComment": "", // "if an additional comment for the to point could be useful for the supplier"
+	}
+	"redundancy": { // "may be set to null if no redundancy is wanted"
+		"type": "Full", // 'Normal', 'Full'"
+		"toPointId": "CBA123"
+	},
 	"serviceLevel": "Premium", // "e.g. 'Base', 'Gold', 'Premium'"
 	"product": "All", // "e.g. 'All', 'Point2Point', 'Star'"
 	"parameters": [
@@ -198,7 +204,7 @@ Content-Type: application/json
 		},
 		...
 	],
-	"contractPeriod": 12, // "number of months"
+	"contractPeriodMonths": 12,
 	"noOfFibers": 1, // "number of wanted fiber pairs (or single fibers depending on product)"
 	"asyncAnswerAllowed": true // "if asychronous answer is ok (might result in an extra charge if manual)"
 }
@@ -219,9 +225,9 @@ Content-Type: application/json
 	"offers": [
 		{
 			"supplier": "STOKAB",
-			"offerValidUntil": "2016-01-31",
+			"offerValidUntilDate": "2016-01-31",
 			"connectionId": "", // "may be set to the identifier for the connection if that is already generated when inquiry is answered"
-			"deliveryDuration": 20, // "days from order to delivered connection"
+			"deliveryDurationDays": 20, // "days from order to delivered connection"
 			"products": [
 				{
 					"name": "Point2Point",
@@ -316,9 +322,9 @@ Content-Type: application/json
 	"offers": [
 		{
 			"supplier": "STOKAB",
-			"offerValidUntil": "2016-01-31",
+			"offerValidUntilDate": "2016-01-31",
 			"connectionId": "",
-			"deliveryDuration": 20,
+			"deliveryDurationDays": 20,
 			"products": [
 				{
 					"name": "Point2Point",
