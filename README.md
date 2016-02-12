@@ -58,7 +58,7 @@ Exempel på anropssekvens:
 ***Request:***
 
 ```http
-GET /api/1.0/addresses/ HTTP/1.1
+GET /api/1.0/feasibility/ HTTP/1.1
 ```
 
 ***Response:***
@@ -76,7 +76,7 @@ Vid påföljande anrop skickas en "If-Modified-Since"-header för att bara be om
 ***Request:***
 
 ```http
-GET /api/1.0/addresses/ HTTP/1.1
+GET /api/1.0/feasibility/ HTTP/1.1
 If-Modified-Since: Mon, 11 Jan 2016 12:03:28 GMT
 
 ...
