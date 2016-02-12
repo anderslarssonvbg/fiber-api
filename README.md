@@ -36,7 +36,7 @@ Content-Type: application/json
 		"coordinate": {
 			"latitude": 6581619.085,
 			"longitude": 1628539.32,
-			"system": "WGS84"
+			"projection": "WGS84"
 		},
 		"district": "GAMLA STAN"
 	},
@@ -143,7 +143,7 @@ Content-Type: application/json
 	"coordinate": {
 		"latitude": 6581619.085,
 		"longitude": 1628539.32,
-		"system": "WGS84"
+		"projection": "WGS84"
 	},
 	"district": "GAMLA STAN",
 	"suppliers": [
