@@ -179,7 +179,7 @@ Content-Type: application/json
 		"toComment": "", // "if an additional comment for the to point could be useful for the supplier"
 	}
 	"redundancy": { // "may be set to null if no redundancy is wanted"
-		"type": "Full", // 'Normal', 'Full'"
+		"type": "Full", // "'Normal', 'Full'"
 		"toPointId": "CBA123"
 	},
 	"serviceLevel": "Premium", // "e.g. 'Base', 'Gold', 'Premium'"
