@@ -17,8 +17,8 @@ Content-Type: application/json
 [
 	{
 		"pointId": "ABC123",
-		"street": {
-			"name": "Testvägen",
+		"address": {
+			"street": "Testvägen",
 			"number": "100",
 			"littera": "",
 			"postalCode": "10000",
@@ -124,8 +124,8 @@ Content-Type: application/json
 
 {
 	"pointId": "ABC123",
-	"street": {
-		"name": "Testvägen",
+	"address": {
+		"street": "Testvägen",
 		"number": "100",
 		"littera": "",
 		"postalCode": "10000",
