@@ -107,15 +107,24 @@ HTTP/1.1 304 Not Modified
 
 ***Request:***
 
+Sökning via adress
+
 ```http
 GET /api/1.0/availability?city={city}&street_name={streetName}&street_mumber={streetNumber}&street_littera={streetLittera} HTTP/1.1
 ```
 
-eller
+eller sökning på punkt-id
 
 ```http
 GET /api/1.0/availability?pointId={pointId} HTTP/1.1
 ```
+
+eller sökning på en koordinat som returnerar närmaste kända plats
+
+```http
+GET /api/1.0/availability?xCoordinate={xCoordinate}&yCoordinate={yCoordinate} HTTP/1.1
+```
+
 ***Response:***
 
 ```http
@@ -149,7 +158,8 @@ Content-Type: application/json
 	"suppliers": [
 		{
 			"name": "STOKAB",
-			"fiberStatus": "IN_REAL_ESTATE", // "'EXISTS', 'AT_SITE_BOUNDARY'"
+			"fiberStatus": "IN_REAL_ESTATE", // "'AT_ADDRESS', 'AT_SITE_BOUNDARY'"
+			"statusValidationRequired": true // "indicates if the fiberStatus needs manual validation to assure availability"
 		},
 		...
 	],
@@ -176,8 +186,8 @@ Content-Type: application/json
 	},
 	"to": { // "may be set to null if any product only requires one point (address)"
 		"pointId": "ABC789", 
-		"toComment": "", // "if an additional comment for the to point could be useful for the supplier"
-	}
+		"comment": "", // "if an additional comment for the to point could be useful for the supplier"
+	},
 	"redundancy": { // "may be set to null if no redundancy is wanted"
 		"type": "Full", // "'Normal', 'Full'"
 		"toPointId": "CBA123"
