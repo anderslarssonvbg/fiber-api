@@ -192,6 +192,7 @@ Content-Type: application/json
 		"type": "Full", // "'Normal', 'Full'"
 		"toPointId": "CBA123"
 	},
+	"customerType": "Commercial", // "e.g. 'Residential'
 	"serviceLevel": "Premium", // "e.g. 'Base', 'Gold', 'Premium'"
 	"product": "All", // "e.g. 'All', 'Point2Point', 'Star'"
 	"parameters": [
