@@ -509,7 +509,7 @@ Content-Type: application/json
 		"supplier": "STOKAB",
 		"product": "Point2Point"
 	},
-	"state": "DELIVERED",
+	"state": "DELIVERED", // "ORDERED", "DELIVERED", "REJECTED"
 	"message": "",
 	"orderDate": "2015-01-11",
 	"deliveryDate": "2015-02-15"
