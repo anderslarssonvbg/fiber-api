@@ -551,7 +551,7 @@ Content-Type: application/json
 		"message": ""
 	},
 	{
-		"inquiryId": "ab6cd754-6a30-11e2-a585-4fc569185643",
+		"orderId": "ab6cd754-6a30-11e2-a585-4fc569185643",
 		"state": "REJECTED",
 		"message": "The order couldn't be delivered because of no available fibers"
 	},
