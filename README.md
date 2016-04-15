@@ -321,9 +321,8 @@ GET /api/1.0/inquiry/ec4bc754-6a30-11e2-a585-4fc569183061 HTTP/1.1
 ***Response:***
 
 ```http
-HTTP/1.1 201 CREATED
+HTTP/1.1 200 OK
 Last-Modified: Mon, 11 Jan 2015 12:03:28 GMT
-Location: /api/1.0/inquiry/ec4bc754-6a30-11e2-a585-4fc569183061
 Content-Type: application/json
 
 {
@@ -483,7 +482,79 @@ Content-Type: application/json
 		"supplier": "STOKAB",
 		"product": "Point2Point"
 	},
-	"state": "PENDING",
+	"state": "ORDERED",
 	"message": ""
 }
+```
+
+### Hämta uppdatering på en lagd order
+
+***Request:***
+
+```http
+GET /api/1.0/order/fc6cd754-6a30-11e2-a585-4fc569185689 HTTP/1.1
+```
+
+***Response:***
+
+```http
+HTTP/1.1 200 OK
+Last-Modified: Tue, 15 Feb 2015 15:12:53 GMT
+Content-Type: application/json
+
+{
+	"orderId": "fc6cd754-6a30-11e2-a585-4fc569185689",
+	"inquiryId": "ec4bc754-6a30-11e2-a585-4fc569183061",
+	"offer": {
+		"supplier": "STOKAB",
+		"product": "Point2Point"
+	},
+	"state": "DELIVERED",
+	"message": "",
+	"orderDate": "2015-01-11",
+	"deliveryDate": "2015-02-15"
+}
+```
+
+### Hämta slutförda ordrar
+
+Anropet skall returnera samtliga ordrar som skett sedan since. Order som since avser skall inte ingå i svaret.
+
+Listan är oföränderlig. Vid två tidpunkter, t1 och t2, där t2 inträffar efter t1, skall tjänstens svar vid t2 alltid omfatta hela t1. Svaret kan alltså enbart växa, inte förändras.
+
+Av denna anledningen är det viktigt att tjänstens svar inte är en projektion på ordrar, som kan ändra status, utan endast innefattar sådana ordrar som har nått en slutstatus.
+
+Listan över ordrar skall vara stigande i kronologisk ordning (senaste order som har förändrats sist). Klienten kan då använda det sista lästa ordern som since-parameter i nästföljande anrop.
+
+Enbart ordrar som har status DELIVERED eller REJECTED får förekomma i svaret.
+
+Om inte since skickas med så skall alla slutförda ordrar returneras.
+
+För att hämta detaljerad information om respektive order, använd Hämta uppdatering på en lagd order.
+
+***Request:***
+
+```http
+GET /api/1.0/orders/?since=fc6cd754-6a30-11e2-a585-4fc569185689
+```
+
+***Response:***
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+[
+	{
+		"orderId": "fc6cd754-6a30-11e2-a585-4fc569185689",
+		"state": "DELIVERED",
+		"message": ""
+	},
+	{
+		"inquiryId": "ab6cd754-6a30-11e2-a585-4fc569185643",
+		"state": "REJECTED",
+		"message": "The order couldn't be delivered because of no available fibers"
+	},
+	...
+]
 ```
