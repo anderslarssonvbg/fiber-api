@@ -176,7 +176,7 @@ Content-Type: application/json
 ***Request:***
 
 ```http
-POST /api/1.0/inquiry/ HTTP/1.1
+POST /api/1.0/inquiry HTTP/1.1
 Content-Type: application/json
 
 {
@@ -448,4 +448,42 @@ Content-Type: application/json
 	},
 	...
 ]
+```
+
+# 4. Order API
+### Lägg en beställning på en tidigare gjord förfrågan
+
+***Request:***
+
+```http
+POST /api/1.0/order HTTP/1.1
+Content-Type: application/json
+
+{
+	"inquiryId": "ec4bc754-6a30-11e2-a585-4fc569183061",
+	"offer": {
+		"supplier": "STOKAB",
+		"product": "Point2Point"
+	}
+}
+```
+
+***Response:***
+
+```http
+HTTP/1.1 201 CREATED
+Last-Modified: Mon, 11 Jan 2015 12:05:28 GMT
+Location: /api/1.0/order/fc6cd754-6a30-11e2-a585-4fc569185689
+Content-Type: application/json
+
+{
+	"orderId": "fc6cd754-6a30-11e2-a585-4fc569185689",
+	"inquiryId": "ec4bc754-6a30-11e2-a585-4fc569183061",
+	"offer": {
+		"supplier": "STOKAB",
+		"product": "Point2Point"
+	},
+	"state": "PENDING",
+	"message": ""
+}
 ```
