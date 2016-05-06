@@ -110,7 +110,7 @@ HTTP/1.1 304 Not Modified
 Sökning via adress
 
 ```http
-GET /api/1.0/availability?city={city}&street_name={streetName}&street_mumber={streetNumber}&street_littera={streetLittera} HTTP/1.1
+GET /api/1.0/availability?city={city}&street_name={streetName}&street_number={streetNumber}&street_littera={streetLittera} HTTP/1.1
 ```
 
 eller sökning på punkt-id
@@ -194,7 +194,9 @@ Content-Type: application/json
 	},
 	"customerType": "Commercial", // "e.g. 'Commercial', 'Residential'"
 	"serviceLevel": "Premium", // "e.g. 'Base', 'Gold', 'Premium'"
-	"product": "All", // "e.g. 'All', 'Point2Point', 'Star'"
+	"products": [
+		"All" // "e.g. 'All', 'Point2Point', 'Star'"
+	],
 	"parameters": [
 		{
 			"name": "ConnectorType",
