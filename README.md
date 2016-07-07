@@ -176,7 +176,7 @@ Content-Type: application/json
 ***Request:***
 
 ```http
-POST /api/1.0/inquiry HTTP/1.1
+POST /api/1.0/inquiries HTTP/1.1
 Content-Type: application/json
 
 {
@@ -228,7 +228,7 @@ Content-Type: application/json
 ```http
 HTTP/1.1 201 CREATED
 Last-Modified: Mon, 11 Jan 2015 12:03:28 GMT
-Location: /api/1.0/inquiry/ec4bc754-6a30-11e2-a585-4fc569183061
+Location: /api/1.0/inquiries/ec4bc754-6a30-11e2-a585-4fc569183061
 Content-Type: application/json
 
 {
@@ -317,7 +317,7 @@ Content-Type: application/json
 ***Request:***
 
 ```http
-GET /api/1.0/inquiry/ec4bc754-6a30-11e2-a585-4fc569183061 HTTP/1.1
+GET /api/1.0/inquiries/ec4bc754-6a30-11e2-a585-4fc569183061 HTTP/1.1
 ```
 
 ***Response:***
@@ -457,7 +457,7 @@ Content-Type: application/json
 ***Request:***
 
 ```http
-POST /api/1.0/order HTTP/1.1
+POST /api/1.0/orders HTTP/1.1
 Content-Type: application/json
 
 {
@@ -474,7 +474,7 @@ Content-Type: application/json
 ```http
 HTTP/1.1 201 CREATED
 Last-Modified: Mon, 11 Jan 2015 12:05:28 GMT
-Location: /api/1.0/order/fc6cd754-6a30-11e2-a585-4fc569185689
+Location: /api/1.0/orders/fc6cd754-6a30-11e2-a585-4fc569185689
 Content-Type: application/json
 
 {
@@ -494,7 +494,7 @@ Content-Type: application/json
 ***Request:***
 
 ```http
-GET /api/1.0/order/fc6cd754-6a30-11e2-a585-4fc569185689 HTTP/1.1
+GET /api/1.0/orders/fc6cd754-6a30-11e2-a585-4fc569185689 HTTP/1.1
 ```
 
 ***Response:***
