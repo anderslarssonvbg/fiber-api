@@ -27,11 +27,11 @@ Content-Type: application/json
 		},
 		"building": {
 			"distinguisher": "", // "set if something is needed to distinguish a specific building on the address"
-			"type": "MDU", // "'MDU' = apartment building, 'SDU' = villa"
+			"type": "MDU" // "'MDU' = apartment building, 'SDU' = villa"
 		},
 		"realEstate": {
 			"label": "PENGABINGEN 1",
-			"municipality": "ANKEBORG",
+			"municipality": "ANKEBORG"
 		},
 		"coordinate": {
 			"latitude": 6581619.085,
@@ -143,11 +143,11 @@ Content-Type: application/json
 	},
 	"building": {
 		"distinguisher": "", // "set if something is needed to distinguish a specific building on the address"
-		"type": "MDU", // "'MDU' = apartment building, 'SDU' = villa"
+		"type": "MDU" // "'MDU' = apartment building, 'SDU' = villa"
 	},
 	"realEstate": {
 		"label": "PENGABINGEN 1",
-		"municipality": "ANKEBORG",
+		"municipality": "ANKEBORG"
 	},
 	"coordinate": {
 		"latitude": 6581619.085,
@@ -427,7 +427,7 @@ För att hämta detaljerad information om respektive förfrågan, använd Hämta
 ***Request:***
 
 ```http
-GET /api/1.0/inquiries/?since=ca4bc754-6a30-11e2-a585-4fc569183569
+GET /api/1.0/inquiries?since=ca4bc754-6a30-11e2-a585-4fc569183569
 ```
 
 ***Response:***
@@ -537,7 +537,7 @@ För att hämta detaljerad information om respektive order, använd Hämta uppda
 ***Request:***
 
 ```http
-GET /api/1.0/orders/?since=fc6cd754-6a30-11e2-a585-4fc569185689
+GET /api/1.0/orders?since=fc6cd754-6a30-11e2-a585-4fc569185689
 ```
 
 ***Response:***
