@@ -528,7 +528,7 @@ Content-Type: application/json
 				...
 			]
 		}
-	]
+	}
 }
 ```
 
