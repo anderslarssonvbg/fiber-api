@@ -615,9 +615,11 @@ Content-Type: application/json
 	"inquiryId": "ec4bc754-6a30-11e2-a585-4fc569183061",
 	"supplier": "STOKAB",
 	"product": "Point2Point",
-	"state": "ORDERED",
-	"message": "",
-	"orderDateTime": "2015-01-11T11:34:00.000Z",
+	"status": {
+		"state": "ORDERED",
+		"message": "",
+		"orderDateTime": "2015-01-11T11:34:00.000Z"
+	}
 }
 ```
 
@@ -641,10 +643,25 @@ Content-Type: application/json
 	"inquiryId": "ec4bc754-6a30-11e2-a585-4fc569183061",
 	"supplier": "STOKAB",
 	"product": "Point2Point",
-	"state": "DELIVERED", // "ORDERED", "DELIVERED", "REJECTED"
-	"message": "",
-	"orderDateTime": "2015-01-11T11:34:00.000Z",
-	"doneDateTime": "2015-02-15T14:49:12.000Z"
+	"status": {
+		"state": "DELIVERED", // "ORDERED", "DELIVERED", "REJECTED"
+		"message": "",
+		"orderDateTime": "2015-01-11T11:34:00.000Z",
+		"doneDateTime": "2015-02-15T14:49:12.000Z"
+	},
+	"responsiblePerson": {
+	        "firstName": "Anders",
+		"lastName": "Larsson",
+		"phoneNumber": "46701234567",
+		"email": "anders.larsson@comhem.com"
+	},
+	"endCustomer": {
+		"firstName": "Sven",
+		"lastName": "Svensson",
+		"phoneNumber": "46702233445",
+		"email": "sven.svensson@company.com"
+	},
+	"invoiceGroup": "IK-12345"
 }
 ```
 
