@@ -40,11 +40,12 @@ Content-Type: application/json
 		},
 		"district": "GAMLA STAN",
 		"suppliers": [
-		{
-			"name": "STOKAB",
-			"fiberStatus": "IN_REAL_ESTATE", // "'AT_ADDRESS', 'AT_SITE_BOUNDARY'"
-			"statusValidationRequired": true // "indicates if the fiberStatus needs manual validation to assure availability"
-		},
+			{
+				"name": "STOKAB",
+				"fiberStatus": "IN_REAL_ESTATE", // "'AT_ADDRESS', 'AT_SITE_BOUNDARY'"
+				"statusValidationRequired": true // "indicates if the fiberStatus needs manual validation to assure availability"
+			}
+		],
  		"relatedPointIds": [ // "list of other nearby points (addresses) which could be used instead of the searched point (address)"
 			"CDE678",
 			"CDE901"
