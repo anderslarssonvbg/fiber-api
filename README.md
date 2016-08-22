@@ -378,8 +378,12 @@ Content-Type: application/json
 {
 	"inquiryId": "ec4bc754-6a30-11e2-a585-4fc569183061",
 	"referenceId": "CH-12345",
-	"state": "WAIT_ASYNC_ANSWER", // "'DONE_SUCCESS', 'DONE_FAILED', 'DONE_ASYNC_ANSWER_SUCCESS', 'DONE_ASYNC_ANSWER_FAILED'"
-	"message": "",
+	"status": {
+		"state": "WAIT_ASYNC_ANSWER", // "'DONE_SUCCESS', 'DONE_FAILED', 'DONE_ASYNC_ANSWER_SUCCESS', 'DONE_ASYNC_ANSWER_FAILED'"
+		"message": "",
+		"createDateTime": 2016-08-21T08:01:06.000Z",
+		"doneDateTime": 2016-08-22T10:15:01.000Z", // "should be null if not yet done"
+	},
 	"supplier": "STOKAB",
 	"offerValidUntilDate": "2016-01-31",
 	"connectionId": "", // "may be set to the identifier for the connection if that is already generated when inquiry is answered"
@@ -460,8 +464,12 @@ Content-Type: application/json
 {
 	"inquiryId": "ec4bc754-6a30-11e2-a585-4fc569183061",
 	"referenceId": "CH-12345",
-	"state": "DONE_ASYNC_ANSWER_SUCCESS",
-	"message": "",
+	"status": {
+		"state": "DONE_ASYNC_ANSWER_SUCCESS",
+		"message": "",
+		"createDateTime": 2016-08-21T08:01:06.000Z",
+		"doneDateTime": 2016-08-22T10:15:01.000Z", // "should be null if not yet done"
+	},
 	"supplier": "STOKAB",
 	"offerValidUntilDate": "2016-01-31",
 	"connectionId": "",
@@ -526,7 +534,7 @@ Content-Type: application/json
 
 ### Hämta slutförda förfrågningar som krävde asynkront svar
 
-Anropet skall returnera samtliga förfrågningar som skett sedan since. Förfrågan som since avser skall inte ingå i svaret.
+Anropet skall returnera samtliga förfrågningar som skett sedan since. Om en förfrågan har exakt angiven tidpunkt som doneDateTime så skall den ordern inte ingå i svaret.
 
 Listan är oföränderlig. Vid två tidpunkter, t1 och t2, där t2 inträffar efter t1, skall tjänstens svar vid t2 alltid omfatta hela t1. Svaret kan alltså enbart växa, inte förändras.
 
@@ -543,7 +551,7 @@ För att hämta detaljerad information om respektive förfrågan, använd Hämta
 ***Request:***
 
 ```http
-GET /api/1.0/inquiries?since=ca4bc754-6a30-11e2-a585-4fc569183569
+GET /api/1.0/inquiries?since=2016-08-22T15:01:02.000Z
 ```
 
 ***Response:***
@@ -596,7 +604,8 @@ Content-Type: application/json
 	"supplier": "STOKAB",
 	"product": "Point2Point",
 	"state": "ORDERED",
-	"message": ""
+	"message": "",
+	"orderDateTime": "2015-01-11T11:34:00.000Z",
 }
 ```
 
@@ -622,20 +631,20 @@ Content-Type: application/json
 	"product": "Point2Point",
 	"state": "DELIVERED", // "ORDERED", "DELIVERED", "REJECTED"
 	"message": "",
-	"orderDate": "2015-01-11",
-	"deliveryDate": "2015-02-15"
+	"orderDateTime": "2015-01-11T11:34:00.000Z",
+	"doneDateTime": "2015-02-15T14:49:12.000Z"
 }
 ```
 
 ### Hämta slutförda ordrar
 
-Anropet skall returnera samtliga ordrar som skett sedan since. Order som since avser skall inte ingå i svaret.
+Anropet skall returnera samtliga ordrar som skett sedan since. Om en order har exakt angiven tidpunkt som doneDateTime så skall den ordern inte ingå i svaret.
 
 Listan är oföränderlig. Vid två tidpunkter, t1 och t2, där t2 inträffar efter t1, skall tjänstens svar vid t2 alltid omfatta hela t1. Svaret kan alltså enbart växa, inte förändras.
 
 Av denna anledningen är det viktigt att tjänstens svar inte är en projektion på ordrar, som kan ändra status, utan endast innefattar sådana ordrar som har nått en slutstatus.
 
-Listan över ordrar skall vara stigande i kronologisk ordning (senaste order som har förändrats sist). Klienten kan då använda det sista lästa ordern som since-parameter i nästföljande anrop.
+Listan över ordrar skall vara stigande i kronologisk ordning (senaste order som har förändrats sist). Klienten kan då använda det sista lästa orderns  som since-parameter i nästföljande anrop.
 
 Enbart ordrar som har status DELIVERED eller REJECTED får förekomma i svaret.
 
@@ -646,7 +655,7 @@ För att hämta detaljerad information om respektive order, använd Hämta uppda
 ***Request:***
 
 ```http
-GET /api/1.0/orders?since=fc6cd754-6a30-11e2-a585-4fc569185689
+GET /api/1.0/orders?since=2016-08-22T10:09:23.000Z
 ```
 
 ***Response:***
