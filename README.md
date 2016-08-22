@@ -377,6 +377,7 @@ Content-Type: application/json
 
 {
 	"inquiryId": "ec4bc754-6a30-11e2-a585-4fc569183061",
+	"referenceId": "CH-12345",
 	"state": "WAIT_ASYNC_ANSWER", // "'DONE_SUCCESS', 'DONE_FAILED', 'DONE_ASYNC_ANSWER_SUCCESS', 'DONE_ASYNC_ANSWER_FAILED'"
 	"message": "",
 	"supplier": "STOKAB",
@@ -458,6 +459,7 @@ Content-Type: application/json
 
 {
 	"inquiryId": "ec4bc754-6a30-11e2-a585-4fc569183061",
+	"referenceId": "CH-12345",
 	"state": "DONE_ASYNC_ANSWER_SUCCESS",
 	"message": "",
 	"supplier": "STOKAB",
