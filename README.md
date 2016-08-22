@@ -597,7 +597,7 @@ Content-Type: application/json
 		"lastName": "Svensson",
 		"phoneNumber": "46702233445",
 		"email": "sven.svensson@company.com"
-	}
+	},
 	"invoiceGroup": "IK-12345"
 }
 ```
