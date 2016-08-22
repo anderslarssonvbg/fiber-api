@@ -315,7 +315,7 @@ Content-Type: application/json
 ```
 
 # 4. Offer Inquiry API
-### Skicka en offert-förfrågan på en förbindelse från en specifik leverantör och en specifik produkt
+### Skicka en offert-förfrågan för en förbindelse av en specifik produkt från en specifik leverantör
 
 ***Request:***
 
