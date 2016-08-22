@@ -38,7 +38,17 @@ Content-Type: application/json
 			"longitude": 1628539.32,
 			"projection": "WGS84"
 		},
-		"district": "GAMLA STAN"
+		"district": "GAMLA STAN",
+		"suppliers": [
+		{
+			"name": "STOKAB",
+			"fiberStatus": "IN_REAL_ESTATE", // "'AT_ADDRESS', 'AT_SITE_BOUNDARY'"
+			"statusValidationRequired": true // "indicates if the fiberStatus needs manual validation to assure availability"
+		},
+ 		"relatedPointIds": [ // "list of other nearby points (addresses) which could be used instead of the searched point (address)"
+			"CDE678",
+			"CDE901"
+		]
 	},
 	...
 ]
@@ -103,7 +113,7 @@ HTTP/1.1 304 Not Modified
 ```
 
 # 2. Availability API
-### Hämta detaljerad information och leverantörers fiberstatus på en specifik plats (adress)
+### Hämta detaljerad information och leverantörers fiberstatus på en specifik plats (adress), men kan också returnera mer än 1 plats om sökningen inte är tillräckligt specifik.
 
 ***Request:***
 
@@ -119,10 +129,10 @@ eller sökning på punkt-id
 GET /api/1.0/availability?pointId={pointId} HTTP/1.1
 ```
 
-eller sökning på en koordinat som returnerar närmaste kända plats
+eller sökning på en koordinat och radie som returnerar de närmaste platserna som är inom angiven radie
 
 ```http
-GET /api/1.0/availability?xCoordinate={xCoordinate}&yCoordinate={yCoordinate} HTTP/1.1
+GET /api/1.0/availability?xCoordinate={xCoordinate}&yCoordinate={yCoordinate}&radius={radius} HTTP/1.1
 ```
 
 ***Response:***
@@ -131,52 +141,55 @@ GET /api/1.0/availability?xCoordinate={xCoordinate}&yCoordinate={yCoordinate} HT
 HTTP/1.1 200 OK
 Content-Type: application/json
 
-{
-	"pointId": "ABC123",
-	"address": {
-		"street": "Testvägen",
-		"number": "100",
-		"littera": "",
-		"postalCode": "10000",
-		"city": "Ankeborg",
-		"countryCode": "SE"
-	},
-	"building": {
-		"distinguisher": "", // "set if something is needed to distinguish a specific building on the address"
-		"type": "MDU" // "'MDU' = apartment building, 'SDU' = villa"
-	},
-	"realEstate": {
-		"label": "PENGABINGEN 1",
-		"municipality": "ANKEBORG"
-	},
-	"coordinate": {
-		"latitude": 6581619.085,
-		"longitude": 1628539.32,
-		"projection": "WGS84"
-	},
-	"district": "GAMLA STAN",
-	"suppliers": [
-		{
-			"name": "STOKAB",
-			"fiberStatus": "IN_REAL_ESTATE", // "'AT_ADDRESS', 'AT_SITE_BOUNDARY'"
-			"statusValidationRequired": true // "indicates if the fiberStatus needs manual validation to assure availability"
+[
+	{
+		"pointId": "ABC123",
+		"address": {
+			"street": "Testvägen",
+			"number": "100",
+			"littera": "",
+			"postalCode": "10000",
+			"city": "Ankeborg",
+			"countryCode": "SE"
 		},
-		...
-	],
- 	"relatedPointIds": [ // "list of other nearby points (addresses) which could be used instead of the searched point (address)"
-		"CDE678",
-		"CDE901"
-	]
-}
+		"building": {
+			"distinguisher": "", // "set if something is needed to distinguish a specific building on the address"
+			"type": "MDU" // "'MDU' = apartment building, 'SDU' = villa"
+		},
+		"realEstate": {
+			"label": "PENGABINGEN 1",
+			"municipality": "ANKEBORG"
+		},
+		"coordinate": {
+			"latitude": 6581619.085,
+			"longitude": 1628539.32,
+			"projection": "WGS84"
+		},
+		"district": "GAMLA STAN",
+		"suppliers": [
+			{
+				"name": "STOKAB",
+				"fiberStatus": "IN_REAL_ESTATE", // "'AT_ADDRESS', 'AT_SITE_BOUNDARY'"
+				"statusValidationRequired": true // "indicates if the fiberStatus needs manual validation to assure availability"
+			},
+			...
+		],
+	 	"relatedPointIds": [ // "list of other nearby points (addresses) which could be used instead of the searched point (address)"
+			"CDE678",
+			"CDE901"
+		]
+	},
+	...
+]
 ```
 
-# 3. Inquiry API
-### Skicka en förfrågan på en förbindelse
+# 3. Price Estimate API
+### Hämta prisuppskattning på en förbindelse
 
 ***Request:***
 
 ```http
-POST /api/1.0/inquiries HTTP/1.1
+POST /api/1.0/priceEstimates HTTP/1.1
 Content-Type: application/json
 
 {
@@ -218,6 +231,136 @@ Content-Type: application/json
 		...
 	],
 	"contractPeriodMonths": 12,
+	"noOfFibers": 1 // "number of wanted fiber pairs (or single fibers depending on product)"
+}
+```
+
+***Response:***
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+[
+	{
+		"supplier": "STOKAB",
+		"products": [
+			{
+				"name": "Point2Point",
+				"status": "AVAILABLE",
+				"comment": "",
+				"items": [
+					{
+						"name": "distance",
+						"value": "987"
+					},
+					...
+				],
+				"price": {
+					"oneTimeFee": 15100.0,
+					"monthlyFee": 1200.0,
+					"items": [
+						{
+							"name": "Connection based on distance",
+							"parameters": [
+								{
+									"name": "distance",
+									"value": "987"
+								},
+								...
+							],
+							"oneTimeFee": 5000.0,
+							"monthlyFee": 1000.0
+						},
+						{
+							"name": "Service level Premium",
+							"parameters": [...],
+							"oneTimeFee": 0.0,
+							"monthlyFee": 200.0
+						},
+						{
+							"name": "Connector",
+							"parameters": [...],
+							"oneTimeFee": 100.0,
+							"monthlyFee": 0.0
+						},
+						{
+							"name": "ResidentialNetwork",
+							"parameters": [
+								{
+									"name": "NoOfRooms",
+									"value": "10"
+								}
+							],
+							"oneTimeFee": 10000.0,
+							"monthlyFee": 0.0
+						},
+						...
+					]
+				}
+			},
+			{
+				"name": "Star",
+				"status": "POSSIBLE_WITH_CONDITIONS", // "'NOT_AVAILABLE', 'AVAILABLE'"
+				"comment": "Connection to anslutningsnod is necessary for address to be available",
+				"items": [],
+				"price": null
+			},
+			...
+		]
+	},
+	...
+]
+```
+
+# 4. Offer Inquiry API
+### Skicka en offert-förfrågan på en förbindelse från en specifik leverantör och en specifik produkt
+
+***Request:***
+
+```http
+POST /api/1.0/inquiries HTTP/1.1
+Content-Type: application/json
+
+{
+	"supplier": "STOKAB",
+	"product": "Point2Point", // "e.g. 'Point2Point', 'Star'"
+	"referenceId": "CH-12345", // "client own reference for this inquiry, could be empty"
+	"from": {
+		"pointId": "ABC123",
+		"comment": "", // "if an additional comment for the from point could be useful for the supplier"
+	},
+	"to": { // "may be set to null if any product only requires one point (address)"
+		"pointId": "ABC789", 
+		"comment": "", // "if an additional comment for the to point could be useful for the supplier"
+	},
+	"redundancy": { // "may be set to null if no redundancy is wanted"
+		"type": "Full", // "'Normal', 'Full'"
+		"toPointId": "CBA123"
+	},
+	"customerType": "Commercial", // "e.g. 'Commercial', 'Residential'"
+	"serviceLevel": "Premium", // "e.g. 'Base', 'Gold', 'Premium'"
+	"parameters": [
+		{
+			"name": "ConnectorType",
+			"value": "SC/APC"
+		},
+		...
+	],
+	"subProducts": [
+		{
+			"name": "ResidentialNetwork",
+			"parameters": [
+				{
+					"name": "NoOfRooms",
+					"value": "10"
+				},
+				...
+			]
+		},
+		...
+	],
+	"contractPeriodMonths": 12,
 	"noOfFibers": 1, // "number of wanted fiber pairs (or single fibers depending on product)"
 	"asyncAnswerAllowed": true // "if asychronous answer is ok (might result in an extra charge if manual)"
 }
@@ -235,84 +378,69 @@ Content-Type: application/json
 	"inquiryId": "ec4bc754-6a30-11e2-a585-4fc569183061",
 	"state": "WAIT_ASYNC_ANSWER", // "'DONE_SUCCESS', 'DONE_FAILED', 'DONE_ASYNC_ANSWER_SUCCESS', 'DONE_ASYNC_ANSWER_FAILED'"
 	"message": "",
-	"offers": [
-		{
-			"supplier": "STOKAB",
-			"offerValidUntilDate": "2016-01-31",
-			"connectionId": "", // "may be set to the identifier for the connection if that is already generated when inquiry is answered"
-			"deliveryDurationDays": 20, // "days from order to delivered connection"
-			"products": [
+	"supplier": "STOKAB",
+	"offerValidUntilDate": "2016-01-31",
+	"connectionId": "", // "may be set to the identifier for the connection if that is already generated when inquiry is answered"
+	"deliveryDurationDays": 20, // "days from order to delivered connection"
+	"product": {
+		"name": "Point2Point",
+		"status": "AVAILABLE",
+		"comment": "",
+		"items": [
+			{
+				"name": "distance",
+				"value": "987"
+			},
+			...
+		],
+		"price": {
+			"status": "ESTIMATED", // "'ESTIMATED', 'OFFER'. Estimated price can be delivered in synchronous answer and then be overridden by an offer in an asynchronous answer"
+			"oneTimeFee": 15100.0,
+			"monthlyFee": 1200.0,
+			"items": [
 				{
-					"name": "Point2Point",
-					"status": "AVAILABLE",
-					"comment": "",
-					"items": [
+					"name": "Connection based on distance",
+					"parameters": [
 						{
 							"name": "distance",
 							"value": "987"
 						},
 						...
 					],
-					"price": {
-						"status": "ESTIMATED", // "'ESTIMATED', 'OFFER'. Estimated price can be delivered in synchronous answer and then be overridden by an offer in an asynchronous answer"
-						"oneTimeFee": 15100.0,
-						"monthlyFee": 1200.0,
-						"items": [
-							{
-								"name": "Connection based on distance",
-								"parameters": [
-									{
-										"name": "distance",
-										"value": "987"
-									},
-									...
-								],
-								"oneTimeFee": 5000.0,
-								"monthlyFee": 1000.0
-							},
-							{
-								"name": "Service level Premium",
-								"parameters": [...],
-								"oneTimeFee": 0.0,
-								"monthlyFee": 200.0
-							},
-							{
-								"name": "Connector",
-								"parameters": [...],
-								"oneTimeFee": 100.0,
-								"monthlyFee": 0.0
-							},
-							{
-								"name": "ResidentialNetwork",
-								"parameters": [
-									{
-										"name": "NoOfRooms",
-										"value": "10"
-									}
-								],
-								"oneTimeFee": 10000.0,
-								"monthlyFee": 0.0
-							},
-							...
-						]
-					}
+					"oneTimeFee": 5000.0,
+					"monthlyFee": 1000.0
 				},
 				{
-					"name": "Star",
-					"status": "POSSIBLE_WITH_CONDITIONS", // "'NOT_AVAILABLE', 'AVAILABLE'"
-					"comment": "Connection to anslutningsnod is necessary for address to be available",
-					"items": [],
-					"price": null
+					"name": "Service level Premium",
+					"parameters": [...],
+					"oneTimeFee": 0.0,
+					"monthlyFee": 200.0
+				},
+				{
+					"name": "Connector",
+					"parameters": [...],
+					"oneTimeFee": 100.0,
+					"monthlyFee": 0.0
+				},
+				{
+					"name": "ResidentialNetwork",
+					"parameters": [
+						{
+							"name": "NoOfRooms",
+							"value": "10"
+						}
+					],
+					"oneTimeFee": 10000.0,
+					"monthlyFee": 0.0
 				},
 				...
 			]
-		},
-		...
-	]
+		}
+	}
 }
 ```
 
-### Hämta uppdatering på en skickad förfrågan
+### Hämta uppdatering på en skickad offert-förfrågan
 
 ***Request:***
 
@@ -331,79 +459,64 @@ Content-Type: application/json
 	"inquiryId": "ec4bc754-6a30-11e2-a585-4fc569183061",
 	"state": "DONE_ASYNC_ANSWER_SUCCESS",
 	"message": "",
-	"offers": [
-		{
-			"supplier": "STOKAB",
-			"offerValidUntilDate": "2016-01-31",
-			"connectionId": "",
-			"deliveryDurationDays": 20,
-			"products": [
+	"supplier": "STOKAB",
+	"offerValidUntilDate": "2016-01-31",
+	"connectionId": "",
+	"deliveryDurationDays": 20,
+	"product": {
+		"name": "Point2Point",
+		"status": "AVAILABLE",
+		"comment": "",
+		"items": [
+			{
+				"name": "distance",
+				"value": "1046"
+			},
+			...
+		],
+		"price": {
+			"status": "OFFER",
+			"oneTimeFee": 15100.0,
+			"monthlyFee": 1500.0,
+			"items": [
 				{
-					"name": "Point2Point",
-					"status": "AVAILABLE",
-					"comment": "",
-					"items": [
+					"name": "Connection based on distance",
+					"parameters": [
 						{
 							"name": "distance",
 							"value": "1046"
 						},
 						...
 					],
-					"price": {
-						"status": "OFFER",
-						"oneTimeFee": 15100.0,
-						"monthlyFee": 1500.0,
-						"items": [
-							{
-								"name": "Connection based on distance",
-								"parameters": [
-									{
-										"name": "distance",
-										"value": "1046"
-									},
-									...
-								],
-								"oneTimeFee": 5000.0,
-								"monthlyFee": 1300.0
-							},
-							{
-								"name": "Service level Premium",
-								"parameters": [...],
-								"oneTimeFee": 0.0,
-								"monthlyFee": 200.0
-							},
-							{
-								"name": "Connector",
-								"parameters": [...],
-								"oneTimeFee": 100.0,
-								"monthlyFee": 0.0
-							},
-							{
-								"name": "ResidentialNetwork",
-								"parameters": [
-									{
-										"name": "NoOfRooms",
-										"value": "10"
-									}
-								],
-								"oneTimeFee": 10000.0,
-								"monthlyFee": 0.0
-							},
-							...
-						]
-					}
+					"oneTimeFee": 5000.0,
+					"monthlyFee": 1300.0
 				},
 				{
-					"name": "Star",
-					"status": "NOT_AVAILABLE",
-					"comment": "",
-					"items": [],
-					"price": null
+					"name": "Service level Premium",
+					"parameters": [...],
+					"oneTimeFee": 0.0,
+					"monthlyFee": 200.0
+				},
+				{
+					"name": "Connector",
+					"parameters": [...],
+					"oneTimeFee": 100.0,
+					"monthlyFee": 0.0
+				},
+				{
+					"name": "ResidentialNetwork",
+					"parameters": [
+						{
+							"name": "NoOfRooms",
+							"value": "10"
+						}
+					],
+					"oneTimeFee": 10000.0,
+					"monthlyFee": 0.0
 				},
 				...
 			]
-		},
-		...
+		}
 	]
 }
 ```
@@ -451,8 +564,8 @@ Content-Type: application/json
 ]
 ```
 
-# 4. Order API
-### Lägg en beställning på en tidigare gjord förfrågan
+# 5. Order API
+### Lägg en beställning på en tidigare mottagen offert och komplettera med kund och fakturainformation.
 
 ***Request:***
 
@@ -462,10 +575,7 @@ Content-Type: application/json
 
 {
 	"inquiryId": "ec4bc754-6a30-11e2-a585-4fc569183061",
-	"offer": {
-		"supplier": "STOKAB",
-		"product": "Point2Point"
-	}
+	"invoiceGroup": "IK-12345"
 }
 ```
 
@@ -480,10 +590,8 @@ Content-Type: application/json
 {
 	"orderId": "fc6cd754-6a30-11e2-a585-4fc569185689",
 	"inquiryId": "ec4bc754-6a30-11e2-a585-4fc569183061",
-	"offer": {
-		"supplier": "STOKAB",
-		"product": "Point2Point"
-	},
+	"supplier": "STOKAB",
+	"product": "Point2Point",
 	"state": "ORDERED",
 	"message": ""
 }
@@ -507,10 +615,8 @@ Content-Type: application/json
 {
 	"orderId": "fc6cd754-6a30-11e2-a585-4fc569185689",
 	"inquiryId": "ec4bc754-6a30-11e2-a585-4fc569183061",
-	"offer": {
-		"supplier": "STOKAB",
-		"product": "Point2Point"
-	},
+	"supplier": "STOKAB",
+	"product": "Point2Point",
 	"state": "DELIVERED", // "ORDERED", "DELIVERED", "REJECTED"
 	"message": "",
 	"orderDate": "2015-01-11",
