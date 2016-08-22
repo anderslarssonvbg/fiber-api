@@ -650,7 +650,7 @@ Content-Type: application/json
 		"doneDateTime": "2015-02-15T14:49:12.000Z"
 	},
 	"responsiblePerson": {
-	        "firstName": "Anders",
+		"firstName": "Anders",
 		"lastName": "Larsson",
 		"phoneNumber": "46701234567",
 		"email": "anders.larsson@comhem.com"
