@@ -39,14 +39,14 @@ Content-Type: application/json
 			"projection": "WGS84"
 		},
 		"district": "GAMLA STAN",
-		"suppliers": [
+		"suppliers": [ // "optional, should only be provided if not heavy to calculate"
 			{
 				"name": "STOKAB",
 				"fiberStatus": "IN_REAL_ESTATE", // "'AT_ADDRESS', 'AT_SITE_BOUNDARY'"
 				"statusValidationRequired": true // "indicates if the fiberStatus needs manual validation to assure availability"
 			}
 		],
- 		"relatedPointIds": [ // "list of other nearby points (addresses) which could be used instead of the searched point (address)"
+ 		"relatedPointIds": [ // "optional, list of other nearby points (addresses) which could be used instead of the searched point (address). should only be provided if not heavy to calculate
 			"CDE678",
 			"CDE901"
 		]
