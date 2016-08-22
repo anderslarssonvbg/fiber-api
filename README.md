@@ -381,8 +381,8 @@ Content-Type: application/json
 	"status": {
 		"state": "WAIT_ASYNC_ANSWER", // "'DONE_SUCCESS', 'DONE_FAILED', 'DONE_ASYNC_ANSWER_SUCCESS', 'DONE_ASYNC_ANSWER_FAILED'"
 		"message": "",
-		"createDateTime": 2016-08-21T08:01:06.000Z",
-		"doneDateTime": 2016-08-22T10:15:01.000Z", // "should be null if not yet done"
+		"createDateTime": "2016-08-21T08:01:06.000Z",
+		"doneDateTime": "2016-08-22T10:15:01.000Z", // "should be null if not yet done"
 	},
 	"supplier": "STOKAB",
 	"offerValidUntilDate": "2016-01-31",
@@ -467,8 +467,8 @@ Content-Type: application/json
 	"status": {
 		"state": "DONE_ASYNC_ANSWER_SUCCESS",
 		"message": "",
-		"createDateTime": 2016-08-21T08:01:06.000Z",
-		"doneDateTime": 2016-08-22T10:15:01.000Z", // "should be null if not yet done"
+		"createDateTime": "2016-08-21T08:01:06.000Z",
+		"doneDateTime": "2016-08-22T10:15:01.000Z", // "should be null if not yet done"
 	},
 	"supplier": "STOKAB",
 	"offerValidUntilDate": "2016-01-31",
