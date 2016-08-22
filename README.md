@@ -589,13 +589,13 @@ Content-Type: application/json
 	"responsiblePerson": {
 		"firstName": "Anders",
 		"lastName": "Larsson",
-		"phoneNumber: "46701234567",
+		"phoneNumber": "46701234567",
 		"email": "anders.larsson@comhem.com"
 	},
 	"endCustomer": {
 		"firstName": "Sven",
 		"lastName": "Svensson",
-		"phoneNumber: "46702233445",
+		"phoneNumber": "46702233445",
 		"email": "sven.svensson@company.com"
 	}
 	"invoiceGroup": "IK-12345"
