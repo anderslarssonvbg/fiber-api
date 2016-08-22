@@ -46,7 +46,7 @@ Content-Type: application/json
 				"statusValidationRequired": true // "indicates if the fiberStatus needs manual validation to assure availability"
 			}
 		],
- 		"relatedPointIds": [ // "optional, list of other nearby points (addresses) which could be used instead of the searched point (address). should only be provided if not heavy to calculate
+ 		"relatedPointIds": [ // "optional, list of other nearby points (addresses) which could be used instead of the searched point (address). should only be provided if not heavy to calculate"
 			"CDE678",
 			"CDE901"
 		]
