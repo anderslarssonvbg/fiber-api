@@ -335,6 +335,7 @@ Content-Type: application/json
 		"pointId": "ABC789", 
 		"comment": "", // "if an additional comment for the to point could be useful for the supplier"
 	},
+	"comment": "Lorem ipsum", /* When comment is present the request will be async */
 	"redundancy": { // "may be set to null if no redundancy is wanted"
 		"type": "Full", // "'Normal', 'Full'"
 		"toPointId": "CBA123"
