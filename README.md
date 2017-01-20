@@ -247,6 +247,7 @@ Content-Type: application/json
 		"supplier": "STOKAB",
 		"products": [
 			{
+				"productId" : "8u3-3563-3635-365-ff",
 				"name": "Point2Point",
 				"status": "AVAILABLE",
 				"comment": "",
@@ -256,6 +257,17 @@ Content-Type: application/json
 						"value": "987"
 					},
 					...
+				],
+				"subProducts": [
+					{
+						"productId": "51dceb13-8d25-4f5f-adb1-29169d6042e2",
+						"name": "ResidentialNetwork",
+						"price": {
+							"oneTimeFee": 1100.0,
+							"monthlyFee": 100.0
+						}
+					},
+					[...]
 				],
 				"price": {
 					"oneTimeFee": 15100.0,
@@ -301,6 +313,7 @@ Content-Type: application/json
 				}
 			},
 			{
+				"productId": "2b99bcfb-b563-4b04-8c8a-8fd636f56d67",
 				"name": "Star",
 				"status": "POSSIBLE_WITH_CONDITIONS", // "'NOT_AVAILABLE', 'AVAILABLE'"
 				"comment": "Connection to anslutningsnod is necessary for address to be available",
@@ -325,7 +338,10 @@ Content-Type: application/json
 
 {
 	"supplier": "STOKAB",
-	"product": "Point2Point", // "e.g. 'Point2Point', 'Star'"
+	"product": {
+		"productId": "0d13c5e0-ce23-41a0-87b5-f480479fa71e",
+		"name": "Point2Point"
+	},
 	"referenceId": "CH-12345", // "client own reference for this inquiry, could be empty"
 	"from": {
 		"pointId": "ABC123",
@@ -335,7 +351,7 @@ Content-Type: application/json
 		"pointId": "ABC789", 
 		"comment": "", // "if an additional comment for the to point could be useful for the supplier"
 	},
-	"comment": "Lorem ipsum", /* When comment is present the request will be async */
+	"comment": "Lorem ipsum", 
 	"redundancy": { // "may be set to null if no redundancy is wanted"
 		"type": "Full", // "'Normal', 'Full'"
 		"toPointId": "CBA123"
@@ -351,6 +367,7 @@ Content-Type: application/json
 	],
 	"subProducts": [
 		{
+			"productId": "51dceb13-8d25-4f5f-adb1-29169d6042e2",
 			"name": "ResidentialNetwork",
 			"parameters": [
 				{
@@ -390,6 +407,7 @@ Content-Type: application/json
 	"connectionId": "", // "may be set to the identifier for the connection if that is already generated when inquiry is answered"
 	"deliveryDurationDays": 20, // "days from order to delivered connection"
 	"product": {
+		"productId": "bd16d8d5-c147-4490-8b7a-93193fce8fb3",
 		"name": "Point2Point",
 		"status": "AVAILABLE",
 		"comment": "",
@@ -397,6 +415,17 @@ Content-Type: application/json
 			{
 				"name": "distance",
 				"value": "987"
+			},
+			...
+		],
+		"subProducts": [
+			{
+				"productId": "51dceb13-8d25-4f5f-adb1-29169d6042e2",
+				"name": "ResidentialNetwork",
+				"price": {
+					"oneTimeFee": 1100.0,
+					"monthlyFee": 100.0
+				}
 			},
 			...
 		],
