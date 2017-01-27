@@ -505,6 +505,7 @@ Content-Type: application/json
 	"connectionId": "",
 	"deliveryDurationDays": 20,
 	"product": {
+		"productId": "8u3-3563-3635-365-ff",
 		"name": "Point2Point",
 		"status": "AVAILABLE",
 		"comment": "",
@@ -644,7 +645,10 @@ Content-Type: application/json
 	"orderId": "fc6cd754-6a30-11e2-a585-4fc569185689",
 	"inquiryId": "ec4bc754-6a30-11e2-a585-4fc569183061",
 	"supplier": "STOKAB",
-	"product": "Point2Point",
+	"product": {
+		"productId": "8u3-3563-3635-365-ff",
+		"name": "Point2Point"
+	},
 	"status": {
 		"state": "ORDERED",
 		"message": "",
@@ -672,7 +676,10 @@ Content-Type: application/json
 	"orderId": "fc6cd754-6a30-11e2-a585-4fc569185689",
 	"inquiryId": "ec4bc754-6a30-11e2-a585-4fc569183061",
 	"supplier": "STOKAB",
-	"product": "Point2Point",
+	"product": {
+		"productId": "8u3-3563-3635-365-ff",
+		"name": "Point2Point"
+	},
 	"status": {
 		"state": "DELIVERED", // "ORDERED", "DELIVERED", "REJECTED"
 		"message": "",
