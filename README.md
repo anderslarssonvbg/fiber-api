@@ -381,7 +381,8 @@ Content-Type: application/json
 		...
 	],
 	"contractPeriodMonths": 12,
-	"noOfFibers": 1, // "number of wanted fiber pairs (or single fibers depending on product)"
+	"noOfSingleFibers": 1, // "number of wanted single fibers for single fiber products"
+	"noOfFiberPairs": 1 // "number of wanted fiber pairs for fiber pairs products"
 	"asyncAnswerAllowed": true // "if asychronous answer is ok (might result in an extra charge if manual)"
 }
 ```
